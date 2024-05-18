@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title login
+        link(rel='stylesheet', href='/css/login.css')
+    body
+        div.container
+            div.image-container
+                img(src="/img/login.png", alt="login")
+            div.login-box
+                h1 Inicio interacción
+                form(action="/auth/login", method="POST")
+                    div.form-group
+                        label(for="email")  
+                        input(type="email", name="email", id="email", required)
+                    div.form-group
+                        label(for="password")
+                        input(type="password", name="password", id="password", required)
+                    div.form-group
+                        button(type="submit") Ingresar
