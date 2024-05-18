@@ -22,7 +22,7 @@ User.init({
     unique: true,
   },
   password: {
-    type: DataTypes.STRING(255), // Asegúrate de que la longitud sea suficiente para almacenar el hash bcrypt
+    type: DataTypes.STRING(255), 
     allowNull: false,
   },
   createdAt: {
@@ -38,7 +38,7 @@ User.init({
 }, {
   sequelize,
   modelName: 'User',
-  tableName: 'users', // Asegúrate de que el nombre de la tabla es correcto
+  tableName: 'users', 
   timestamps: true,
 });
 
