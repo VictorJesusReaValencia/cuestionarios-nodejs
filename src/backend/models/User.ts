@@ -2,12 +2,13 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../database/database';
 
 class User extends Model {
-  public id!: number;
-  public username!: string;
-  public password!: string;
-  public createdAt!: Date;
-  public updatedAt!: Date;
+  public declare id: number;
+  public declare username: string;
+  public declare password: string;
+  public declare createdAt: Date;
+  public declare updatedAt: Date;
 }
+
 
 User.init({
   id: {
@@ -21,7 +22,7 @@ User.init({
     unique: true,
   },
   password: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(255), // Asegúrate de que la longitud sea suficiente para almacenar el hash bcrypt
     allowNull: false,
   },
   createdAt: {
@@ -37,7 +38,7 @@ User.init({
 }, {
   sequelize,
   modelName: 'User',
-  tableName: 'users',
+  tableName: 'users', // Asegúrate de que el nombre de la tabla es correcto
   timestamps: true,
 });
 

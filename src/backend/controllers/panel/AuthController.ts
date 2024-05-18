@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
 import User from '../../models/User';
 
 const secretKey = '969364vR$';
 
 export const login = async (req: Request, res: Response) => {
-    console.log('Request body:', req.body);
+    console.log('Request body:', req.body); // Agregar este log para depuración
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -20,9 +19,8 @@ export const login = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        const passwordMatch = await bcrypt.compare(password, user.password);
-
-        if (!passwordMatch) {
+        // Compara la contraseña en texto plano
+        if (password !== user.password) {
             return res.status(401).json({ message: 'Credenciales inválidas' });
         }
 
