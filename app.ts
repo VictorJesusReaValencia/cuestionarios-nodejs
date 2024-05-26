@@ -4,6 +4,7 @@ import homeController from './src/backend/controllers/general/home';
 import loginPanelController from './src/backend/controllers/panel/login';
 import authRoutes from './src/backend/routes/authRoutes';
 import bodyParser from 'body-parser';
+import questionRoutes from './src/backend/routes/questionRoutes';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'src', 'frontend', 'public')));
 app.use(homeController);
 app.use(loginPanelController);
 app.use('/auth', authRoutes);
+app.use('/api', questionRoutes);
 
 // Iniciar el servidor
 const PORT = process.env.PORT || 3000;
