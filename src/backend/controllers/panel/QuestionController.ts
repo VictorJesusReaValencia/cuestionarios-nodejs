@@ -15,7 +15,7 @@ export const createQuestion = async (req: Request, res: Response) => {
         const newQuestion = await Question.create({
             question,
             // @ts-ignore
-            creatorUserId: req.user.userId, // Asumiendo que el middleware añade req.user
+            creatorUserId: req.user.userId,
         });
 
         for (const option of options) {
