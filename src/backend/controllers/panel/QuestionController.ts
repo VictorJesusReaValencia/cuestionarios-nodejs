@@ -8,7 +8,7 @@ export const createQuestion = async (req: Request, res: Response) => {
     const { question, options } = req.body;
 
     if (!question || !options || !Array.isArray(options)) {
-        return res.status(400).json({ message: 'Faltan datos en la solicitud' });
+        return res.status(400).render('error', { message: 'Faltan datos en la solicitud' });
     }
 
     try {
@@ -26,24 +26,24 @@ export const createQuestion = async (req: Request, res: Response) => {
             });
         }
 
-        res.status(201).json({ message: 'Pregunta creada con éxito' });
+        res.status(201).render('success', { message: 'Pregunta creada con éxito' });
     } catch (error) {
         console.error('Error al crear la pregunta:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(500).render('error', { message: 'Error interno del servidor' });
     }
 };
 
 export const getQuestions = async (req: Request, res: Response) => {
     try {
-        const questions = await Question.findAll({
+        const latestQuestion = await Question.findOne({
             include: [AnswerOption, User],
             order: [['createdAt', 'DESC']],
         });
 
-        res.json(questions);
+        res.render('questions', { latestQuestion });
     } catch (error) {
         console.error('Error al obtener preguntas:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(500).render('error', { message: 'Error interno del servidor' });
     }
 };
 
@@ -54,13 +54,13 @@ export const deleteQuestion = async (req: Request, res: Response) => {
         const question = await Question.findByPk(id);
 
         if (!question) {
-            return res.status(404).json({ message: 'Pregunta no encontrada' });
+            return res.status(404).render('error', { message: 'Pregunta no encontrada' });
         }
 
         await question.destroy();
-        res.json({ message: 'Pregunta eliminada con éxito' });
+        res.render('success', { message: 'Pregunta eliminada con éxito' });
     } catch (error) {
         console.error('Error al eliminar la pregunta:', error);
-        res.status(500).json({ message: 'Error interno del servidor' });
+        res.status(500).render('error', { message: 'Error interno del servidor' });
     }
 };

@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Última Pregunta
+  body
+    if latestQuestion
+      h1= latestQuestion.question
+      form(action="/api/questions" method="post")
+        ul
+          each option in latestQuestion.AnswerOptions
+            li
+              label
+                input(type="radio" name="option" value=option.id)
+                = option.option
+        button(type="submit") Enviar
+    else
+      h1 No hay preguntas disponibles.
